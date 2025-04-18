@@ -8,7 +8,7 @@ import lombok.Data;
 public class ResponseDTO {
     private String message;
     private Object data;
-    // private HttpStatusCode statusCode;
+//    private HttpStatusCode statusCode;
 
 //    public ResponseDTO() {}
 //    public ResponseDTO(String message, Object data) {
