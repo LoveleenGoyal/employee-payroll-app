@@ -9,6 +9,7 @@ public interface IEmployeePayrollService {
     Employee getEmployeePayrollDataById(int empId);
     Employee createEmployeePayrollData(EmployeeDTO employeeDTO);
     List<Employee> getAllEmployeePayrollData();
+    List<Employee> getEmployeesByDepartment(String department);
     Employee updateEmployeePayrollData(int empId, EmployeeDTO employeeDTO);
 
     void deleteEmployeePayrollData(int empId);

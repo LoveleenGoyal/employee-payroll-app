@@ -46,6 +46,12 @@ public class EmployeePayrollServiceImpl implements IEmployeePayrollService{
     }
 
     @Override
+    public List<Employee> getEmployeesByDepartment(String department) {
+        log.info("Fetching employees records by department");
+        return repository.findEmployeesByDepartment(department);
+    }
+
+    @Override
     public Employee updateEmployeePayrollData(int id, EmployeeDTO employeeDTO) {
         Optional<Employee> employeeOptional = repository.findById(id);
         if (employeeOptional.isPresent()) {
