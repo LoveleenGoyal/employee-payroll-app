@@ -21,7 +21,7 @@ public class EmployeePayrollController {
     @RequestMapping(value = {"","/","/get"})
     public ResponseEntity<ResponseDTO> getEmployeePayrollData(@RequestParam(defaultValue = "World") String name,
                                                               @RequestParam(defaultValue = "0.0") double salary) {
-        EmployeeDTO employeeDTO = new EmployeeDTO(name, salary);
+        EmployeeDTO employeeDTO = new EmployeeDTO();
         Employee employee = payrollService.createEmployeePayrollData(employeeDTO);
         ResponseDTO responseDTO = new ResponseDTO("Get call successful", employee);
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);

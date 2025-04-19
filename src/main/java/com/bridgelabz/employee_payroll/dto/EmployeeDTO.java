@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @NoArgsConstructor
@@ -24,7 +25,7 @@ public class EmployeeDTO {
     @JsonFormat(pattern = "dd MM yyyy")
     @NotNull(message = "Start Date should not be empty")
     @PastOrPresent(message = "Start date should be past or today's date")
-    public String startDate;
+    public LocalDate startDate;
 
     @NotBlank(message = "Note cannot be Empty")
     public String note;
