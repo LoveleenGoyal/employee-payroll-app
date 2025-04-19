@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -16,6 +18,12 @@ public class EmployeeDTO {
 
     @Min(value = 500, message = "Min Wage should be more than 500")
     private double salary;
+
+    public String gender;
+    public String startDate;
+    public String note;
+    public String profilePic;
+    public List<String> department;
 
 //    public EmployeeDTO() {}
 //    public EmployeeDTO(String name, double salary) {
