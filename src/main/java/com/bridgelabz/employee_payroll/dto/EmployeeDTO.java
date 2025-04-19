@@ -22,7 +22,7 @@ public class EmployeeDTO {
     @Pattern(regexp = "male|female", message = "Gender needs to be male or female")
     public String gender;
 
-    @JsonFormat(pattern = "dd MM yyyy")
+    @JsonFormat(pattern = "dd MMM yyyy")
     @NotNull(message = "Start Date should not be empty")
     @PastOrPresent(message = "Start date should be past or today's date")
     public LocalDate startDate;
