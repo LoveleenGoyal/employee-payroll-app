@@ -17,7 +17,7 @@ public class EmployeePayrollServiceImpl implements IEmployeePayrollService{
 
     @Override
     public Employee getEmployeePayrollDataById(int empId) {
-        Optional<Employee> employeeOptional = repository.findById((long) empId);
+        Optional<Employee> employeeOptional = repository.findById(empId);
         return employeeOptional.orElseThrow(() -> new EmployeePayrollException("Employee not found"));
     }
 
@@ -36,7 +36,7 @@ public class EmployeePayrollServiceImpl implements IEmployeePayrollService{
 
     @Override
     public Employee updateEmployeePayrollData(int id, EmployeeDTO employeeDTO) {
-        Optional<Employee> employeeOptional = repository.findById((long) id);
+        Optional<Employee> employeeOptional = repository.findById(id);
         if (employeeOptional.isPresent()) {
             Employee employee = employeeOptional.get();
             employee.setName(employeeDTO.getName());
@@ -48,6 +48,6 @@ public class EmployeePayrollServiceImpl implements IEmployeePayrollService{
 
     @Override
     public void deleteEmployeePayrollData(int empId) {
-        repository.deleteById((long) empId);
+        repository.deleteById(empId);
     }
 }
