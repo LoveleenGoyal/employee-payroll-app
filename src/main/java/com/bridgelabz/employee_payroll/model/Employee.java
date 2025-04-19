@@ -4,6 +4,9 @@ import com.bridgelabz.employee_payroll.dto.EmployeeDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Entity
 @Getter @Setter @NoArgsConstructor
 public class Employee {
@@ -12,13 +15,22 @@ public class Employee {
     private int employeeId;
     private String name;
     private double salary;
-
+    private String gender;
+    private LocalDate startDate;
+    private String note;
+    private String profilePic;
+    private List<String> departments;
 //    public Employee() {}
 
     public Employee(int i, EmployeeDTO employeeDTO) {
         this.employeeId = i;
         this.name = employeeDTO.getName();
         this.salary = employeeDTO.getSalary();
+        this.gender = employeeDTO.getGender();
+        this.note = employeeDTO.getNote();
+        this.startDate = LocalDate.parse(employeeDTO.startDate);
+        this.profilePic = employeeDTO.getProfilePic();
+        this.departments = employeeDTO.department;
     }
 
 //    public long getEmployeeId() {
