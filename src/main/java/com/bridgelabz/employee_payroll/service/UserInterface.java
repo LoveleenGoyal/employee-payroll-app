@@ -17,4 +17,8 @@ public interface UserInterface {
     boolean existsByEmail(String email);
 
     Optional<User> getUserByEmail(String email);
+
+    AuthResponseDTO<String, String> forgotPassword(String email);
+
+    AuthResponseDTO<String, String> resetPassword(String token, String newPassword);
 }

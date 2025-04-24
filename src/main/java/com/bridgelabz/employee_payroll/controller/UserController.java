@@ -8,10 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/authenticate")
@@ -29,5 +26,15 @@ public class UserController {
     public ResponseEntity<AuthResponseDTO<String, String>> login(@Valid @RequestBody LoginDTO loginDTO) {
         AuthResponseDTO<String,String> responseDTO = userInterface.loginUser(loginDTO);
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<AuthResponseDTO<String, String>> forgotPassword(@RequestParam String email) {
+        return ResponseEntity.ok(userInterface.forgotPassword(email));
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<AuthResponseDTO<String, String>> resetPassword(@RequestParam String token, @RequestParam String newPassword) {
+        return ResponseEntity.ok(userInterface.resetPassword(token, newPassword));
     }
 }

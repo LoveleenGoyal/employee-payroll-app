@@ -33,7 +33,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/authenticate/register", "/authenticate/login", "/", "getAddress", "addAddress").permitAll()
+                        .requestMatchers(
+                                "/authenticate/register",
+                                "/authenticate/login",
+                                "/authenticate/reset-password",
+                                "/authenticate/forgot-password",
+                                "/", "getAddress", "addAddress"
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))

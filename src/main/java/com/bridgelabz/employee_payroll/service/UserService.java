@@ -104,4 +104,64 @@ public class UserService implements UserInterface{
         log.debug("Fetching user by email: {}", email);
         return userRepository.findByEmail(email);
     }
+
+    @Override
+    public AuthResponseDTO<String, String> forgotPassword(String email) {
+        log.info("Forgot password request for email: {}", email);
+        AuthResponseDTO<String, String> res = new AuthResponseDTO<>();
+        Optional<User> userOpt = getUserByEmail(email);
+
+        if (userOpt.isEmpty()) {
+            log.warn("Forgot password failed: No user found with email {}", email);
+            res.setMessage("error");
+            res.setMessageData("User not found with email: " + email);
+            return res;
+        }
+
+        String token = jwtUtility.generateToken(email);
+        String resetLink = "http://localhost:8080/authenticate/reset-password?token=" + token;
+
+        log.info("Reset password link sent to {}", email);
+        emailService.sendMail(email, "Reset your password",
+                "Click the link to reset your password:\n" + resetLink);
+
+        res.setMessage("message");
+        res.setMessageData("Password reset link sent to your email" + " and token is: " + token);
+        return res;
+    }
+
+    @Override
+    public AuthResponseDTO<String, String> resetPassword(String token, String newPassword) {
+        log.info("Reset password attempt using token");
+        AuthResponseDTO<String, String> res = new AuthResponseDTO<>();
+        String email;
+
+        try {
+            email = jwtUtility.getUsernameFromToken(token);
+            log.debug("Token validated, email extracted: {}", email);
+        } catch (Exception e) {
+            log.error("Reset password failed: Invalid or expired token - {}", e.getMessage());
+            res.setMessage("error");
+            res.setMessageData("Invalid or expired token");
+            return res;
+        }
+
+        Optional<User> userOpt = getUserByEmail(email);
+        if (userOpt.isEmpty()) {
+            log.warn("Reset password failed: No user found with email {}", email);
+            res.setMessage("error");
+            res.setMessageData("User not found");
+            return res;
+        }
+
+        User user = userOpt.get();
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+
+        log.info("Password reset successful for user: {}", email);
+        res.setMessage("message");
+        res.setMessageData("Password reset successfully");
+        return res;
+    }
+
 }
